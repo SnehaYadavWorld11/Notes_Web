@@ -9,7 +9,7 @@ import fs from "fs";
 
 const app = express();
 app.use(express.json());
-app.use(cors({origin :"https://notes-sharing-web-world.vercel.app"}));
+app.use(cors());
 const JWT_SECRET = process.env.JWT_SECRET;
 const MONGODB_URI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 5000;
