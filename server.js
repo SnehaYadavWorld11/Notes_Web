@@ -9,7 +9,22 @@ import fs from "fs";
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+const allowedOrigins = [
+  'https://notes-sharing-web-world.vercel.app', 
+  'http://localhost:5173' 
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 const JWT_SECRET = process.env.JWT_SECRET;
 const MONGODB_URI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 5000;
