@@ -135,7 +135,10 @@ app.post("/notes/upload", upload.single("file"), async (req, res) => {
 
 app.get("/notes/user/:username", async (req, res) => {
   try {
-    const notes = await Note.find({ uploadedBy: req.params.username });
+    const username = req.params.username;
+    const notes = await Note.find({ 
+      uploadedBy: { $regex: new RegExp(`^${username}$`, "i") } 
+    });
     res.json(notes);
   } catch (error) {
     res.status(500).json({ error: "Notes Not Found" });
