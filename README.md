@@ -1,12 +1,65 @@
-# React + Vite
+# Notes_Web - Advanced MERN Stack Student Notes Sharing Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![MERN Stack](https://img.shields.io/badge/MERN-Full%20Stack-blue)
+![JWT Authentication](https://img.shields.io/badge/Auth-JWT-green)
+![Tailwind CSS](https://img.shields.io/badge/Style-Tailwind%20CSS-06B6D4)
+![Live Demo](https://img.shields.io/badge/Demo-Live-brightgreen)
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🚀 **Live Demo:** [https://notes-sharing-web-world.vercel.app/](https://notes-sharing-web-world.vercel.app/)
 
-## Expanding the ESLint configuration
+A full-featured student notes sharing application built with the MERN stack (MongoDB, Express.js, React.js, Node.js) and Tailwind CSS for styling.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📸 Application Preview
+
+| ![Dashboard](https://github.com/SnehaYadavWorld11/Notes_Web/blob/f253ba68f0155757ab5b7a0a7e37fa5b98c9679b/public/Screenshot%202025-08-15%20181549.png?raw=true) | 
+|:--:| 
+| *Dashboard Page with modern UI* |
+
+| ![Notes](https://github.com/SnehaYadavWorld11/Notes_Web/blob/f253ba68f0155757ab5b7a0a7e37fa5b98c9679b/public/Screenshot%202025-08-15%20181659.png?raw=true) |
+|:--:|
+| *Note sharing interface with social options* |
+
+| ![Register](https://github.com/SnehaYadavWorld11/Notes_Web/blob/f253ba68f0155757ab5b7a0a7e37fa5b98c9679b/public/Screenshot%202025-08-15%20181741.png?raw=true) |
+|:--:|
+| *Registration Page* |
+
+| ![Login](https://github.com/SnehaYadavWorld11/Notes_Web/blob/f253ba68f0155757ab5b7a0a7e37fa5b98c9679b/public/Screenshot%202025-08-15%20181755.png?raw=true) |
+|:--:|
+| *Login Page* |
+
+## ✨ Key Features
+
+### 🔐 Secure Authentication
+- ✅ User registration with validation
+- ✅ JWT-based login/logout system
+- ✅ Protected routes and sessions
+
+### 📚 Comprehensive Notes Management
+- 📁 Upload multiple file types (PDF, DOCX, TXT)
+- 🗂️ Organize notes with categories/tags
+- 🔍 Preview, download, and delete notes
+- 📊 Track upload history and statistics
+
+### 🌍 Social Integration
+- 🔗 One-click sharing to social platforms
+
+
+
+### Frontend Architecture
+- ⚛️ React.js (Vite) - Core framework
+- � Tailwind CSS + DaisyUI - Styling
+- 🚦 React Router v6 - Navigation
+- 🧩 Context API + useReducer - State management
+- 📡 Axios - API communication
+- ✨ React Icons - Beautiful icons
+
+### Backend Services
+- 🏗️ Node.js + Express.js - Server framework
+- 🍃 MongoDB (Mongoose) - Database
+- 🔑 JWT - Authentication
+- 📤 Multer - File upload handling
+- 🔐 Bcrypt - Password security
+- 🛡️ CORS + Helmet - Security middleware
+
+
