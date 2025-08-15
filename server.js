@@ -135,9 +135,11 @@ app.post("/notes/upload", upload.single("file"), async (req, res) => {
 
 app.get("/notes/user/:username", async (req, res) => {
   try {
-    const username = req.params.username;
+    const username = decodeURIComponent(req.params.username).trim(); 
     const notes = await Note.find({ 
-      uploadedBy: { $regex: new RegExp(`^${username}$`, "i") } 
+      uploadedBy: { 
+        $regex: new RegExp(`^${username.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, "i") 
+      } 
     });
     res.json(notes);
   } catch (error) {
