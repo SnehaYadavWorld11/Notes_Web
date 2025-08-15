@@ -117,30 +117,27 @@ app.post("/auth/login", async (req, res) => {
 
 app.post("/notes/upload", upload.single("file"), async (req, res) => {
   const { title, description, username } = req.body;
-  const filePath = req.file ? req.file.path : "";
+  const normalizedUsername = username.trim().toLowerCase(); // Normalize here
+  
   try {
     const note = new Note({
       title,
       description,
-      filePath,
-      uploadedBy: username,
+      filePath: req.file?.path || "",
+      uploadedBy: normalizedUsername // Store normalized version
     });
-
     await note.save();
     res.status(201).json({ message: "Note uploaded" });
   } catch (error) {
-    res.status(500).json({ error: "Error during note uploaded" });
+    res.status(500).json({ error: "Error during note upload" });
   }
 });
 
 app.get("/notes/user/:username", async (req, res) => {
   try {
-    const username = decodeURIComponent(req.params.username).trim(); 
-    const notes = await Note.find({ 
-      uploadedBy: { 
-        $regex: new RegExp(`^${username.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, "i") 
-      } 
-    });
+    const normalizedUsername = decodeURIComponent(req.params.username).trim().toLowerCase();
+    const notes = await Note.find({ uploadedBy: normalizedUsername }); // Exact match
+    
     res.json(notes);
   } catch (error) {
     res.status(500).json({ error: "Notes Not Found" });
