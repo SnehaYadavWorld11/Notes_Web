@@ -15,7 +15,10 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post(`${API_URL}/auth/register`, formData);
+    await axios.post(`${API_URL}/auth/register`, {
+      ...formData,
+      password: formData.password.trim(),
+    });
     window.location.href = "/login";
   };
 
