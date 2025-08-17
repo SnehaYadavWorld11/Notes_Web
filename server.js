@@ -10,21 +10,23 @@ import fs from "fs";
 const app = express();
 app.use(express.json());
 const allowedOrigins = [
-  'https://notes-sharing-web-world.vercel.app', 
-  'http://localhost:5173' 
+  "https://notes-sharing-web-world.vercel.app",
+  "http://localhost:5173",
 ];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 const JWT_SECRET = process.env.JWT_SECRET;
 const MONGODB_URI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 5000;
@@ -79,10 +81,13 @@ app.get("/notes", async (req, res) => {
 });
 
 app.post("/auth/register", async (req, res) => {
-  const { username, email, password } = req.body;
-
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const trimmedPassword = password.trim();
+    if (!trimmedPassword) {
+      return res.status(400).json({ error: "Password cannot be empty" });
+    }
+
+    const hashedPassword = await bcrypt.hash(trimmedPassword, 10); // Use trimmed password
     const user = new User({ username, email, password: hashedPassword });
     await user.save();
     res.status(201).json({ message: "User Registered Successfully" });
@@ -99,7 +104,9 @@ app.post("/auth/login", async (req, res) => {
       return res.status(404).json({ error: "User Not Found" });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const trimmedPassword = password.trim();
+    const isMatch = await bcrypt.compare(trimmedPassword, user.password); // Compare trimmed
+
     if (!isMatch) {
       return res.status(400).json({ error: "Invalid Password" });
     }
@@ -118,13 +125,13 @@ app.post("/auth/login", async (req, res) => {
 app.post("/notes/upload", upload.single("file"), async (req, res) => {
   const { title, description, username } = req.body;
   const normalizedUsername = username.trim().toLowerCase(); // Normalize here
-  
+
   try {
     const note = new Note({
       title,
       description,
       filePath: req.file?.path || "",
-      uploadedBy: normalizedUsername // Store normalized version
+      uploadedBy: normalizedUsername, // Store normalized version
     });
     await note.save();
     res.status(201).json({ message: "Note uploaded" });
@@ -135,9 +142,11 @@ app.post("/notes/upload", upload.single("file"), async (req, res) => {
 
 app.get("/notes/user/:username", async (req, res) => {
   try {
-    const normalizedUsername = decodeURIComponent(req.params.username).trim().toLowerCase();
+    const normalizedUsername = decodeURIComponent(req.params.username)
+      .trim()
+      .toLowerCase();
     const notes = await Note.find({ uploadedBy: normalizedUsername }); // Exact match
-    
+
     res.json(notes);
   } catch (error) {
     res.status(500).json({ error: "Notes Not Found" });
