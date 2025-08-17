@@ -9,15 +9,23 @@ function Login() {
     password: "",
   });
 
-  const handleChange = (e) =>
+const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const {data} = await axios.post(`${API_URL}/auth/login`,formData)
-    localStorage.setItem("token", data.token)
-    window.location.href = "/dash";
+    const loginData = {
+    email: formData.email,
+    password: formData.password.trim()
   };
+  try {
+    const { data } = await axios.post(`${API_URL}/auth/login`, loginData);
+    localStorage.setItem("token", data.token);
+    window.location.href = "/dash";
+  } catch (err) {
+    console.error("Login error:", err);
+  }
+};
 
   return (
     <div className="w-96 bg-gray-900 p-6 rounded-lg container mx-auto">
