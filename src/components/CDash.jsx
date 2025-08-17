@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 const API_URL = import.meta.env.VITE_API_URL;
-import { FaFacebook, FaLinkedin, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import * as FaIcons from "react-icons/fa";
 function CDash() {
   const [notes, setNotes] = useState([]);
   useEffect(() => {
@@ -46,16 +46,16 @@ function CDash() {
                   <a href={`${API_URL}/${note.filePath}`} target="_blank" >Download File</a>
                   <div className="mt-3 flex space-x-3">
                     <a  href={`https://www.facebook.com/sharer/sharer.php?u=${fileLink}`} target="_blank" className='text-blue-500 hover:text-blue-400'>
-                      <FaFacebook />
+                      <FaIcons.FaFacebook />
                     </a>
                     <a href={`https://www.twitter.com/intent/tweet?url=${fileLink}`} target="_blank" className='text-blue-500 hover:text-blue-400'>
-                      <FaTwitter />
+                      <FaIcons.FaTwitter />
                     </a>
                     <a href={`https://api.whatsapp.com/send?text=${fileLink}`} target="_blank" className='text-green-500 hover:text-blue-400'>
-                      <FaWhatsapp />
+                      <FaIcons.FaWhatsapp />
                     </a>
                     <a href={`https://www.linkedin.com/sharer/sharerArticle?url=${fileLink}`} target="_blank" className='text-blue-700 hover:text-blue-400' >
-                      <FaLinkedin />
+                      <FaIcons.FaLinkedin />
                     </a>
                   </div>
                 </div>
